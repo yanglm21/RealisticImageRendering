@@ -3,6 +3,8 @@
 
 #include <Vector3f.h>
 #include "object3d.hpp"
+#include "utils.hpp"
+#include <vecmath.h>
 
 class Light {
 public:
@@ -65,6 +67,44 @@ private:
     Vector3f position;
     Vector3f color;
 
+};
+
+class DiskLight : public Light {
+   public:
+    DiskLight() = delete;
+
+    DiskLight(const Vector3f &p, const Vector3f &dir, const Vector3f &c,
+              float r) {
+        position = p;
+        color = c;
+        direction = dir.normalized();
+        radius = r;
+        ons(dir, u, v);
+    }
+
+    ~DiskLight() override = default;
+
+    void getIllumination(const Vector3f &p, Vector3f &dir,
+                         Vector3f &col) const override {
+        // the direction to the light is the opposite of the
+        // direction of the directional light source
+        dir = (position - p);
+        dir = dir / dir.length();
+        col = color;
+    }
+
+    Ray getRay() const {
+        float alpha = RND2 * 2 * M_PI;
+        Vector3f p = position + cos(alpha) * u + sin(alpha) * v;
+        return Ray(p, Matrix3f(u, v, direction) * cosineHemisphere(RND2, RND2));
+    }
+
+    void type() const override {
+        std::cout << "This is disk light." << std::endl;
+    }
+    Vector3f position, direction, u, v;
+    Vector3f color;
+    float radius;
 };
 
 #endif // LIGHT_H

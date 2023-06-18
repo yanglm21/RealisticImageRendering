@@ -20,15 +20,15 @@ int main(int argc, char *argv[]) {
         std::cout << "Argument " << argNum << " is: " << argv[argNum] << std::endl;
     }
 
-    if (argc != 3) {
-        cout << "Usage: ./bin/PA1 <input scene file> <output bmp file>" << endl;
+    if (argc < 5) {
+        std::cout << "Usage: ./bin/PA1 <input scene file> <output bmp file> "
+                     "<method> [<spp>]/[<numRounds> <numPhotons> <ckpt_interval>]"
+                  << endl;
         return 1;
     }
     string inputFile = argv[1];
     string outputFile = argv[2];  // only bmp is allowed.
 
-    // TODO: Main RayCasting Logic
-    // First, parse the scene using SceneParser.
     SceneParser sceneParser(inputFile.c_str());
     Camera * camera = sceneParser.getCamera();
     Image image(camera->getWidth(), camera->getHeight());
