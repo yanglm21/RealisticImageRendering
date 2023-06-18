@@ -35,4 +35,15 @@ inline void ons(const Vector3f &v1, Vector3f &v2, Vector3f &v3)
     v3 = Vector3f::cross(v1, v2);
 }
 
+inline Vector3f cosineHemisphere(float u1, float u2)
+{
+    const float r = sqrt(u1);
+    const float theta = 2 * PI * u2;
+
+    const float x = r * cos(theta);
+    const float y = r * sin(theta);
+
+    return Vector3f(x, y, sqrt(std::max(0.0f, 1 - u1)));
+}
+
 #endif

@@ -26,10 +26,7 @@ int main(int argc, char *argv[]) {
                   << endl;
         return 1;
     }
-    string inputFile = argv[1];
-    string outputFile = argv[2];  // only bmp is allowed.
-
-    SceneParser sceneParser(inputFile.c_str());
+    SceneParser sceneParser(argv[1]);
     Camera * camera = sceneParser.getCamera();
     Image image(camera->getWidth(), camera->getHeight());
     // Then loop over each pixel in the image, shooting a ray

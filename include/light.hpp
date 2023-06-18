@@ -99,9 +99,6 @@ class DiskLight : public Light {
         return Ray(p, Matrix3f(u, v, direction) * cosineHemisphere(RND2, RND2));
     }
 
-    void type() const override {
-        std::cout << "This is disk light." << std::endl;
-    }
     Vector3f position, direction, u, v;
     Vector3f color;
     float radius;
