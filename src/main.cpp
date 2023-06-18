@@ -27,41 +27,10 @@ int main(int argc, char *argv[]) {
         return 1;
     }
     SceneParser sceneParser(argv[1]);
-    Camera * camera = sceneParser.getCamera();
-    Image image(camera->getWidth(), camera->getHeight());
-    // Then loop over each pixel in the image, shooting a ray
-    // through that pixel and finding its intersection with
-    // the scene.  Write the color at the intersection to that
-    // pixel in your output image.
-
-    // 循 环 屏 幕 空 间 的 像 素 2 
-    for ( int x = 0; x < camera->getWidth () ; ++x) {
-        for ( int y = 0; y < camera->getHeight () ; ++y) {
-            // 计 算 当 前 像 素 (x , y) 处 相 机 出 射 光 线camRay
-            Ray camRay = sceneParser.getCamera()->generateRay ( Vector2f (x, y) ) ;
-            Group * baseGroup = sceneParser . getGroup () ;
-            // 判 断camRay是 否 和 场 景 有 交 点， 并 返 回 最 近 交 点 的 数 据， 存 储 在 hit 中 9 bool i s I n t e r s e c t = baseGroup−>i n t e r s e c t (camRay, hit , 0) ;
-            Hit hit;
-            bool isIntersect = baseGroup->intersect(camRay, hit, 0);
-            if (isIntersect) {
-                Vector3f finalColor = Vector3f::ZERO;
-                // 找 到 交 点 之 后， 累 加 来 自 所 有 光 源 的 光 强 影 响
-                for ( int li = 0; li < sceneParser.getNumLights(); ++li ) {
-                    Light * light = sceneParser.getLight(li);
-                    Vector3f L, lightColor ;
-                    // 获 得 光 照 强 度
-                    light->getIllumination(camRay.pointAtParameter(hit.getT()), L, lightColor);
-                    // 计 算 局 部 光 强
-                    finalColor += hit.getMaterial()->Shade(camRay, hit, L, lightColor);
-                }
-                image.SetPixel(x , y , finalColor);
-            } else {
-                // 不 存 在 交 点， 返 回 背 景 色
-                image.SetPixel(x , y , sceneParser.getBackgroundColor());
-            }
-        }
+    
+    if (!strcmp(argv[3], "sppm")) {
+        //TODO:
     }
-    cout << "Hello! Computer Graphics!" << endl;
-    image.SaveBMP(outputFile.c_str());
+
     return 0;
 }
