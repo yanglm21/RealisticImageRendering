@@ -26,10 +26,12 @@ public:
 
     virtual ~Material() = default;
 
-    virtual Vector3f getDiffuseColor() const {
-        return diffuseColor;
+    Vector3f getColor(float u, float v) const {
+        if (!texture.pic)
+            return diffuseColor;
+        else
+            return texture.getColor(u, v);
     }
-
 
     Vector3f Shade(const Ray &ray, const Hit &hit,
                    const Vector3f &dirToLight, const Vector3f &lightColor) {
