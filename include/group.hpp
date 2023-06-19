@@ -44,6 +44,14 @@ public:
         return objList.size();
     }
 
+    vector<Object3D *> getIlluminant() const {
+        vector<Object3D *> illuminant;
+        for (int i = 0; i < objList.size(); ++i)
+            if (objList[i]->material->emission != Vector3f::ZERO)
+                illuminant.push_back(objList[i]);
+        return illuminant;
+    }
+
 private:
     std::vector<Object3D *> objList;
 };

@@ -12,7 +12,21 @@ public:
     // constructors
     Hit() {
         material = nullptr;
-        t = 1e38;
+        t = INF;
+        r2 = INIT_RADIUS;
+        attenuation = Vector3f(1);
+        normal = fluxLight = flux = color = Vector3f::ZERO;
+        n = 0;
+    }
+
+    Hit(float _t, Material *m, const Vector3f &norm) {
+        t = _t;
+        material = m;
+        normal = norm;
+        r2 = INIT_RADIUS;
+        attenuation = Vector3f(1);
+        fluxLight = flux = color = Vector3f::ZERO;
+        n = 0;
     }
 
     Hit(float _t, Material *m, const Vector3f &n) {
@@ -25,6 +39,10 @@ public:
         t = h.t;
         material = h.material;
         normal = h.normal;
+        r2 = h.r2;
+        attenuation = h.attenuation;
+        fluxLight = h.fluxLight;
+        n = 0;
     }
 
     // destructor
@@ -42,17 +60,24 @@ public:
         return normal;
     }
 
-    void set(float _t, Material *m, const Vector3f &n) {
+    void reset(const Vector3f &_d) {
+        t = INF;
+    }
+
+    void set(float _t, Material *m, const Vector3f &n, const Vector3f &c,
+             const Vector3f &_p) {
         t = _t;
         material = m;
         normal = n;
+        color = c;
+        p = _p;
     }
 
-private:
-    float t;
+    float t, r2;
     Material *material;
-    Vector3f normal;
-
+    Vector3f normal, color, flux, fluxLight, attenuation;
+    Vector3f dir, p;
+    int n;
 };
 
 inline std::ostream &operator<<(std::ostream &os, const Hit &h) {

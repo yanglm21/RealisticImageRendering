@@ -83,4 +83,8 @@ Vector3f operator * ( const Matrix3f& m, const Vector3f& v );
 // Matrix-Matrix multiplication
 Matrix3f operator * ( const Matrix3f& x, const Matrix3f& y );
 
+Vector3f min(const Vector3f& v1, const Vector3f& v2);
+
+Vector3f max(const Vector3f& v1, const Vector3f& v2);
+
 #endif // MATRIX3F_H
