@@ -323,11 +323,11 @@ bool operator != ( const Vector3f& v0, const Vector3f& v1 )
 }
 
 
-Vector3f min(const Vector3f& v1, const Vector3f& v2) {
+Vector3f minE(const Vector3f& v1, const Vector3f& v2) {
     return Vector3f(std::min(v1.x(), v2.x()), std::min(v1.y(), v2.y()),
                     std::min(v1.z(), v2.z()));
 }
-Vector3f max(const Vector3f& v1, const Vector3f& v2) {
+Vector3f maxE(const Vector3f& v1, const Vector3f& v2) {
     return Vector3f(std::max(v1.x(), v2.x()), std::max(v1.y(), v2.y()),
                     std::max(v1.z(), v2.z()));
 }

@@ -5,6 +5,7 @@
 #include <vecmath.h>
 #include <cmath>
 #include <iostream>
+#include <cfloat>
 using namespace std;
 
 // TODO: implement this class and add more fields as necessary,
@@ -26,11 +27,11 @@ public:
 		nSet = false;
         tSet = false;
 		d = Vector3f::dot(normal, a);
-        bound[0] = min(min(a, b), c);
-        bound[1] = max(max(a, b), c);
+        bound[0] = minE(minE(a, b), c);
+        bound[1] = maxE(maxE(a, b), c);
     }
 
-	bool intersect( const Ray& ray,  Hit& hit , float tmin) override {
+	bool intersect(const Ray& ray, Hit& hit) override {
 		Vector3f o(ray.getOrigin()), dir(ray.getDirection());
         Vector3f v0v1 = vertices[1] - vertices[0];
         Vector3f v0v2 = vertices[2] - vertices[0];

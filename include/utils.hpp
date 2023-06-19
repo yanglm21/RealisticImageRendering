@@ -53,4 +53,27 @@ inline Vector3f cosineHemisphere(float u1, float u2)
     return Vector3f(x, y, sqrt(std::max(0.0f, 1 - u1)));
 }
 
+inline float randomQMC(int axis, long long int seed) {
+    int base = prime[axis];
+    float f = 1, res = 0;
+    while (seed > 0) {
+        f /= base;
+        res += f * (seed % base);
+        seed /= base;
+    }
+    return res;
+}
+
+inline float random(int axis=-1, long long int seed=0) {
+    if (axis == -1) return RND2;
+    return randomQMC(axis, seed);
+}
+
+inline Vector3f diffDir(const Vector3f &norm, int depth=0, long long int seed=0)
+{
+    Vector3f rotX, rotY;
+    ons(norm, rotX, rotY);
+    return Matrix3f(rotX, rotY, norm) * cosineHemisphere(random(2*depth+1, seed), random(2*depth+2, seed));
+}
+
 #endif

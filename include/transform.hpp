@@ -32,7 +32,10 @@ public:
         Ray tr(trSource, trDirection);
         bool inter = o->intersect(tr, h, tmin);
         if (inter) {
-            h.set(h.getT(), h.getMaterial(), transformDirection(transform.transposed(), h.getNormal()).normalized());
+            h.set(h.t, h.material,
+                  transformDirection(transform.transposed(), h.getNormal())
+                      .normalized(),
+                  h.color, h.t * r.direction + r.origin);
         }
         return inter;
     }

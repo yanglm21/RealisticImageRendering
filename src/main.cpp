@@ -10,6 +10,7 @@
 #include "camera.hpp"
 #include "group.hpp"
 #include "light.hpp"
+#include "render.hpp"
 
 #include <string>
 
@@ -26,10 +27,13 @@ int main(int argc, char *argv[]) {
                   << endl;
         return 1;
     }
-    SceneParser sceneParser(argv[1]);
+    SceneParser scene(argv[1]);
     
     if (!strcmp(argv[3], "sppm")) {
-        //TODO:
+        int numRounds = atoi(argv[4]), numPhotons = atoi(argv[5]),
+            ckpt = atoi(argv[6]);
+        SPPM sppm(scene, numRounds, numPhotons, ckpt, argv[2]);
+        sppm.render();
     }
 
     return 0;

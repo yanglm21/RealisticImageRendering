@@ -16,8 +16,16 @@ public:
         this->material = material;
     }
 
+    virtual std::vector<Object3D *> getFaces() { return {this}; }
+    virtual Vector3f min() const { return Vector3f(); }
+    virtual Vector3f max() const { return Vector3f(); }
+    virtual Vector3f center() const { return Vector3f(); }
+    virtual Ray randomRay(int axis = -1, long long int seed=0) const {
+        return Ray(Vector3f::ZERO, Vector3f::ZERO);
+    }
+
     // Intersect Ray with this object. If hit, store information in hit structure.
-    virtual bool intersect(const Ray &r, Hit &h, float tmin) = 0;
+    virtual bool intersect(const Ray &r, Hit &h) = 0;
 
     Material *material;
 };

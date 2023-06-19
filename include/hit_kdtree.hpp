@@ -26,8 +26,8 @@ class HitKDTree {
         p->max = -p->min;
         p->maxr2 = 0;
         for (int i = l; i <= r; ++i) {
-            p->min = min(p->min, hits[i]->p);
-            p->max = max(p->max, hits[i]->p);
+            p->min = minE(p->min, hits[i]->p);
+            p->max = maxE(p->max, hits[i]->p);
             p->maxr2 = std::max(p->maxr2, hits[i]->r2);
         }
 

@@ -77,6 +77,13 @@ public:
     // at p1, the result is p2.
 	static Vector3f cubicInterpolate( const Vector3f& p0, const Vector3f& p1, const Vector3f& p2, const Vector3f& p3, float t );
 
+	float max() const {
+        return m_elements[0] > m_elements[1] && m_elements[0] > m_elements[2]
+                   ? m_elements[0]
+                   : m_elements[1] > m_elements[2] ? m_elements[1]
+                                                   : m_elements[2];
+    }
+
 private:
 
 	float m_elements[ 3 ];

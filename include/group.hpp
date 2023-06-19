@@ -5,6 +5,7 @@
 #include "object3d.hpp"
 #include "ray.hpp"
 #include "hit.hpp"
+#include "object_kdtree.hpp"
 #include <iostream>
 #include <vector>
 
@@ -26,15 +27,7 @@ public:
 
     }
 
-    bool intersect(const Ray &r, Hit &h, float tmin) override {
-        bool check = false;
-        for (auto object: objList){
-            if (object){
-                check |= object->intersect(r, h, tmin);
-            }
-        }
-        return check;
-    }
+    bool intersect(const Ray &r, Hit &h) { return kdTree->intersect(r, h); }
 
     void addObject(int index, Object3D *obj) {
         objList.insert(objList.begin()+index, obj);
@@ -53,6 +46,7 @@ public:
     }
 
 private:
+    ObjectKDTree *kdTree;
     std::vector<Object3D *> objList;
 };
 
